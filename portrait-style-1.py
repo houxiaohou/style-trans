@@ -7,6 +7,8 @@ import time
 
 import torch
 from diffusers import StableDiffusionXLControlNetPipeline, ControlNetModel
+from diffusers.utils import load_image
+
 from constants import BASE_MODEL, CONTROL_CANNY, CONTROL_DEPTH, IMAGE_CANNY, IMAGE_DEPTH, PROMPT, PROMPT_2, NEGATIVE
 
 
@@ -36,7 +38,7 @@ def portrait_trans(
         prompt=prompt,
         negative_prompt=negative,
         prompt_2=prompt_2,
-        image=control_image,
+        image=load_image(control_image),
         controlnet_conditioning_scale=control_scale,
         num_inference_steps=30,
         num_images_per_prompt=4,

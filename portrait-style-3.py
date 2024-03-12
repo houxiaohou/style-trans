@@ -55,7 +55,7 @@ def portrait_trans(
         prompt_2=prompt_2,
         negative_prompt=negative,
         ip_adapter_image=[style_images, origin_image],
-        image=control_image,
+        image=load_image(control_image),
         num_inference_steps=50,
         num_images_per_prompt=4,
     ).images
