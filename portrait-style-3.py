@@ -71,7 +71,6 @@ if __name__ == '__main__':
         IMAGE_CANNY,
         PROMPT,
         control_type='canny',
-        prompt_2=PROMPT_2,
         negative=NEGATIVE
     )
     # depth
@@ -80,6 +79,5 @@ if __name__ == '__main__':
         IMAGE_DEPTH,
         PROMPT,
         control_type='depth',
-        prompt_2=PROMPT_2,
         negative=NEGATIVE
     )
