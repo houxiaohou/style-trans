@@ -46,7 +46,7 @@ def portrait_trans(
     ).images
     for image in images:
         stamp = int(time.time() * 1000)
-        image.save(f'output/1_1/{control_type}/{stamp}.png')
+        image.save(f'output/1_1/{control_type}/{control_scale}-{stamp}.png')
 
 
 if __name__ == '__main__':
