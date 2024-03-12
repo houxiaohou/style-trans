@@ -50,7 +50,7 @@ def portrait_trans(
         subfolder="sdxl_models",
         weight_name=["ip-adapter-plus_sdxl_vit-h.safetensors", "ip-adapter-plus-face_sdxl_vit-h.safetensors"]
     )
-    style_images = [load_image(f"style/{style}/1-{i}.jpg") for i in [8]]
+    style_images = [load_image(f"style/{style}/1-{i}.jpg") for i in [4]]
     pipeline.set_ip_adapter_scale([ip_adapter_scale, face_scale])
     images = pipeline(
         prompt=prompt,
@@ -67,7 +67,7 @@ def portrait_trans(
 
 
 if __name__ == '__main__':
-    for i in [0.3, 0.4, 0.5, 0.6, 0.7]:
+    for i in [0.3, 0.4, 0.5, 0.6]:
         # depth
         portrait_trans(
             IMAGE_ORIGIN,
