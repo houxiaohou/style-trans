@@ -10,7 +10,7 @@ from diffusers import StableDiffusionXLControlNetImg2ImgPipeline, ControlNetMode
 from diffusers.utils import load_image
 from transformers import CLIPVisionModelWithProjection
 
-from constants import BASE_MODEL, CONTROL_CANNY, CONTROL_DEPTH, IMAGE_CANNY, IMAGE_DEPTH, PROMPT, NEGATIVE
+from constants import BASE_MODEL, CONTROL_CANNY, CONTROL_DEPTH, IMAGE_CANNY, IMAGE_DEPTH, PROMPT, NEGATIVE, IMAGE_ORIGIN
 
 
 def portrait_trans(
@@ -69,6 +69,7 @@ def portrait_trans(
 if __name__ == '__main__':
     # canny
     portrait_trans(
+        IMAGE_ORIGIN,
         IMAGE_CANNY,
         PROMPT,
         control_type='canny',
@@ -76,6 +77,7 @@ if __name__ == '__main__':
     )
     # depth
     portrait_trans(
+        IMAGE_ORIGIN,
         IMAGE_DEPTH,
         PROMPT,
         control_type='depth',

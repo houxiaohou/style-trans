@@ -9,7 +9,8 @@ import torch
 from diffusers import StableDiffusionXLControlNetImg2ImgPipeline, ControlNetModel
 from diffusers.utils import load_image
 
-from constants import BASE_MODEL, CONTROL_CANNY, CONTROL_DEPTH, IMAGE_ORIGIN, IMAGE_CANNY, IMAGE_DEPTH, PROMPT, NEGATIVE
+from constants import BASE_MODEL, CONTROL_CANNY, CONTROL_DEPTH, IMAGE_ORIGIN, IMAGE_CANNY, IMAGE_DEPTH, PROMPT, \
+    NEGATIVE, PROMPT_2
 
 
 def portrait_trans(
@@ -57,6 +58,7 @@ if __name__ == '__main__':
         IMAGE_ORIGIN,
         IMAGE_CANNY,
         PROMPT,
+        prompt_2=PROMPT_2,
         control_type='canny',
         negative=NEGATIVE
     )
@@ -65,6 +67,7 @@ if __name__ == '__main__':
         IMAGE_ORIGIN,
         IMAGE_DEPTH,
         PROMPT,
+        prompt_2=PROMPT_2,
         control_type='depth',
         negative=NEGATIVE
     )
