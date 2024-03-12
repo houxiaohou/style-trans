@@ -59,7 +59,7 @@ def portrait_trans(
         image=load_image(origin_image),
         control_image=load_image(control_image),
         strength=strength,
-        num_inference_steps=30,
+        num_inference_steps=50,
         num_images_per_prompt=4,
     ).images
     for image in images:
@@ -68,7 +68,7 @@ def portrait_trans(
 
 
 if __name__ == '__main__':
-    for i in [0.4, 0.5, 0.6, 0.7]:
+    for i in [0.4, 0.5, 0.6, 0.7, 0.8]:
         # canny
         portrait_trans(
             IMAGE_CANNY,
