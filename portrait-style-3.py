@@ -65,21 +65,22 @@ def portrait_trans(
 
 
 if __name__ == '__main__':
-    # canny
-    portrait_trans(
-        IMAGE_ORIGIN,
-        IMAGE_CANNY,
-        PROMPT,
-        control_type='canny',
-        negative=NEGATIVE,
-        ip_adapter_scale=CONTROL_SCALE
-    )
-    # depth
-    portrait_trans(
-        IMAGE_ORIGIN,
-        IMAGE_DEPTH,
-        PROMPT,
-        control_type='depth',
-        negative=NEGATIVE,
-        ip_adapter_scale=CONTROL_SCALE
-    )
+    for i in [0.4, 0.5, 0.6, 0.7]:
+        # canny
+        portrait_trans(
+            IMAGE_ORIGIN,
+            IMAGE_CANNY,
+            PROMPT,
+            control_type='canny',
+            negative=NEGATIVE,
+            ip_adapter_scale=i
+        )
+        # depth
+        portrait_trans(
+            IMAGE_ORIGIN,
+            IMAGE_DEPTH,
+            PROMPT,
+            control_type='depth',
+            negative=NEGATIVE,
+            ip_adapter_scale=i
+        )
