@@ -22,4 +22,4 @@ PROMPT_2 = 'Van Gogh painting style'
 NEGATIVE = 'lowres, bad anatomy, worst quality, low quality'
 
 
-CONTROL_SCALE = 0.5
+CONTROL_SCALE = 0.4
