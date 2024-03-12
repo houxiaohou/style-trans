@@ -48,7 +48,7 @@ def portrait_trans(
         subfolder="sdxl_models",
         weight_name=["ip-adapter-plus_sdxl_vit-h.safetensors", "ip-adapter-plus-face_sdxl_vit-h.safetensors"]
     )
-    style_images = [load_image(f"style/1-{i}.png") for i in range(8)]
+    style_images = [load_image(f"./style/1-{i}.png") for i in range(8)]
     pipeline.set_ip_adapter_scale([0.7, 0.3])
     images = pipeline(
         prompt=prompt,
@@ -61,7 +61,7 @@ def portrait_trans(
     ).images
     for image in images:
         stamp = int(time.time() * 1000)
-        image.save(f'output/1_2/{control_type}/{stamp}.png')
+        image.save(f'output/1_3/{control_type}/{stamp}.png')
 
 
 if __name__ == '__main__':
