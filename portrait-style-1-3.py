@@ -50,7 +50,7 @@ def portrait_trans(
         weight_name=["ip-adapter-plus_sdxl_vit-h.safetensors", "ip-adapter-plus-face_sdxl_vit-h.safetensors"]
     )
     style_images = [load_image(f"style/{style}/1-{i}.jpg") for i in range(8)]
-    pipeline.set_ip_adapter_scale([ip_adapter_scale, 0.3])
+    pipeline.set_ip_adapter_scale([ip_adapter_scale, 0.4])
     images = pipeline(
         prompt=prompt,
         prompt_2=prompt_2,
@@ -62,7 +62,7 @@ def portrait_trans(
     ).images
     for image in images:
         stamp = int(time.time() * 1000)
-        image.save(f'output/1_3/{control_type}/{ip_adapter_scale}-{stamp}.png')
+        image.save(f'output/1_3/{control_type}/face-{ip_adapter_scale}-{stamp}.png')
 
 
 if __name__ == '__main__':
