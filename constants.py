@@ -1,7 +1,8 @@
 
 
 # 基础模型
-BASE_MODEL = 'playgroundai/playground-v2.5-1024px-aesthetic'
+# BASE_MODEL = 'playgroundai/playground-v2.5-1024px-aesthetic'
+BASE_MODEL = 'stabilityai/stable-diffusion-xl-base-1.0'
 
 # ControlNet
 CONTROL_CANNY = 'diffusers/controlnet-canny-sdxl-1.0-small'
