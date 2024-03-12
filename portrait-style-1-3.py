@@ -21,6 +21,7 @@ def portrait_trans(
         control_type: str,
         style: str = 'vangogh',
         ip_adapter_scale: float = 0.7,
+        face_scale: float = 0.4,
         prompt_2: str = None,
         negative: str = None,
 ):
@@ -49,8 +50,8 @@ def portrait_trans(
         subfolder="sdxl_models",
         weight_name=["ip-adapter-plus_sdxl_vit-h.safetensors", "ip-adapter-plus-face_sdxl_vit-h.safetensors"]
     )
-    style_images = [load_image(f"style/{style}/1-{i}.jpg") for i in range(8)]
-    pipeline.set_ip_adapter_scale([ip_adapter_scale, 0.4])
+    style_images = [load_image(f"style/{style}/1-{i}.jpg") for i in [8]]
+    pipeline.set_ip_adapter_scale([ip_adapter_scale, face_scale])
     images = pipeline(
         prompt=prompt,
         prompt_2=prompt_2,
@@ -62,20 +63,11 @@ def portrait_trans(
     ).images
     for image in images:
         stamp = int(time.time() * 1000)
-        image.save(f'output/1_3/{control_type}/face-{ip_adapter_scale}-{stamp}.png')
+        image.save(f'output/1_3/{control_type}/face-{face_scale}-{stamp}.png')
 
 
 if __name__ == '__main__':
-    for i in [0.4, 0.5, 0.6, 0.7]:
-        # canny
-        portrait_trans(
-            IMAGE_ORIGIN,
-            IMAGE_CANNY,
-            PROMPT,
-            control_type='canny',
-            negative=NEGATIVE,
-            ip_adapter_scale=i
-        )
+    for i in [0.3, 0.4, 0.5, 0.6, 0.7]:
         # depth
         portrait_trans(
             IMAGE_ORIGIN,
@@ -83,5 +75,6 @@ if __name__ == '__main__':
             PROMPT,
             control_type='depth',
             negative=NEGATIVE,
-            ip_adapter_scale=i
+            ip_adapter_scale=0.7,
+            face_scale=i,
         )
