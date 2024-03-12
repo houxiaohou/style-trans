@@ -11,6 +11,7 @@ from diffusers.utils import load_image
 
 from constants import BASE_MODEL, CONTROL_CANNY, CONTROL_DEPTH, IMAGE_ORIGIN, IMAGE_CANNY, IMAGE_DEPTH, PROMPT, NEGATIVE
 
+
 def portrait_trans(
         origin_image: str,
         control_image: str,
@@ -42,7 +43,6 @@ def portrait_trans(
         image=load_image(origin_image),
         control_image=load_image(control_image),
         controlnet_conditioning_scale=control_scale,
-        strength=strength,
         num_inference_steps=50,
         num_images_per_prompt=4,
     ).images
@@ -53,21 +53,18 @@ def portrait_trans(
 
 if __name__ == '__main__':
     # canny
-    for i in [0.4, 0.5, 0.6, 0.7, 0.8]:
-        portrait_trans(
-            IMAGE_ORIGIN,
-            IMAGE_CANNY,
-            PROMPT,
-            control_type='canny',
-            negative=NEGATIVE,
-            strength=i
-        )
-        # depth
-        portrait_trans(
-            IMAGE_ORIGIN,
-            IMAGE_DEPTH,
-            PROMPT,
-            control_type='depth',
-            negative=NEGATIVE,
-            strength=i
-        )
+    portrait_trans(
+        IMAGE_ORIGIN,
+        IMAGE_CANNY,
+        PROMPT,
+        control_type='canny',
+        negative=NEGATIVE
+    )
+    # depth
+    portrait_trans(
+        IMAGE_ORIGIN,
+        IMAGE_DEPTH,
+        PROMPT,
+        control_type='depth',
+        negative=NEGATIVE
+    )

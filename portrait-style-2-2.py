@@ -58,7 +58,6 @@ def portrait_trans(
         ip_adapter_image=[style_images],
         image=load_image(origin_image),
         control_image=load_image(control_image),
-        strength=strength,
         num_inference_steps=50,
         num_images_per_prompt=4,
     ).images
@@ -68,20 +67,17 @@ def portrait_trans(
 
 
 if __name__ == '__main__':
-    for i in [0.4, 0.5, 0.6, 0.7, 0.8]:
-        # canny
-        portrait_trans(
-            IMAGE_CANNY,
-            PROMPT,
-            control_type='canny',
-            negative=NEGATIVE,
-            strength=i
-        )
-        # depth
-        portrait_trans(
-            IMAGE_DEPTH,
-            PROMPT,
-            control_type='depth',
-            negative=NEGATIVE,
-            strength=i
-        )
+    # canny
+    portrait_trans(
+        IMAGE_CANNY,
+        PROMPT,
+        control_type='canny',
+        negative=NEGATIVE
+    )
+    # depth
+    portrait_trans(
+        IMAGE_DEPTH,
+        PROMPT,
+        control_type='depth',
+        negative=NEGATIVE
+    )
