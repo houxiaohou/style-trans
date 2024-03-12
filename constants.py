@@ -8,12 +8,19 @@ BASE_MODEL = 'stabilityai/stable-diffusion-xl-base-1.0'
 CONTROL_CANNY = 'diffusers/controlnet-canny-sdxl-1.0-small'
 CONTROL_DEPTH = 'diffusers/controlnet-depth-sdxl-1.0-small'
 
-# IMAGE
+# IMAGE-xiaohou
 IMAGE_ORIGIN = 'https://static.interval.im/stable-ai/upload-e28a0f1c3ba9.jpg?imageView2/2/w/1024/h/1024'
-
-# Control Image
 IMAGE_CANNY = 'https://static.interval.im/stable-ai/trans-1710235307422.png'
 IMAGE_DEPTH = 'https://static.interval.im/stable-ai/trans-1710235297686.png'
+# IMAGE-Mask
+# IMAGE_ORIGIN = 'https://static.interval.im/stable-ai/upload-a1497f2097fd.png?imageView2/2/w/1024/h/1024'
+# IMAGE_CANNY = 'https://static.interval.im/stable-ai/trans-1710237210817.png'
+# IMAGE_DEPTH = 'https://static.interval.im/stable-ai/trans-1710237201488.png'
+# IMAGE-Xixi
+# IMAGE_ORIGIN = 'https://static.interval.im/stable-ai/upload-53647ff7f946.jpg?imageView2/2/w/1024/h/1024'
+# IMAGE_CANNY = 'https://static.interval.im/stable-ai/trans-1710239723166.png'
+# IMAGE_DEPTH = 'https://static.interval.im/stable-ai/trans-1710239712311.png'
+
 
 # prompt
 
