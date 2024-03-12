@@ -20,3 +20,6 @@ IMAGE_DEPTH = 'https://static.interval.im/stable-ai/trans-1710235297686.png'
 PROMPT = '1man, Van Gogh painting style, 4k, masterpiece'
 PROMPT_2 = 'Van Gogh painting style'
 NEGATIVE = 'lowres, bad anatomy, worst quality, low quality'
+
+
+CONTROL_SCALE = 0.5

@@ -11,7 +11,7 @@ from diffusers.utils import load_image
 from transformers import CLIPVisionModelWithProjection
 
 from constants import BASE_MODEL, CONTROL_CANNY, CONTROL_DEPTH, IMAGE_CANNY, IMAGE_DEPTH, PROMPT, PROMPT_2, NEGATIVE, \
-    IMAGE_ORIGIN
+    IMAGE_ORIGIN, CONTROL_SCALE
 
 
 def portrait_trans(
@@ -49,12 +49,12 @@ def portrait_trans(
         weight_name=["ip-adapter-plus_sdxl_vit-h.safetensors", "ip-adapter-plus-face_sdxl_vit-h.safetensors"]
     )
     style_images = [load_image(f"style/1-{i}.jpg") for i in range(8)]
-    pipeline.set_ip_adapter_scale([0.7, 0.3])
+    pipeline.set_ip_adapter_scale([ip_adapter_scale, 0.3])
     images = pipeline(
         prompt=prompt,
         prompt_2=prompt_2,
         negative_prompt=negative,
-        ip_adapter_image=[style_images, origin_image],
+        ip_adapter_image=[style_images, load_image(origin_image)],
         image=load_image(control_image),
         num_inference_steps=30,
         num_images_per_prompt=4,
@@ -71,7 +71,8 @@ if __name__ == '__main__':
         IMAGE_CANNY,
         PROMPT,
         control_type='canny',
-        negative=NEGATIVE
+        negative=NEGATIVE,
+        ip_adapter_scale=CONTROL_SCALE
     )
     # depth
     portrait_trans(
@@ -79,5 +80,6 @@ if __name__ == '__main__':
         IMAGE_DEPTH,
         PROMPT,
         control_type='depth',
-        negative=NEGATIVE
+        negative=NEGATIVE,
+        ip_adapter_scale=CONTROL_SCALE
     )
