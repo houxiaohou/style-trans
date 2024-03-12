@@ -6,12 +6,11 @@
 import time
 
 import torch
-from diffusers import StableDiffusionXLControlNetPipeline, ControlNetModel
+from diffusers import StableDiffusionXLPipeline
 from diffusers.utils import load_image
 from transformers import CLIPVisionModelWithProjection
 
-from constants import BASE_MODEL, CONTROL_CANNY, CONTROL_DEPTH, IMAGE_CANNY, IMAGE_DEPTH, PROMPT, PROMPT_2, NEGATIVE, \
-    IMAGE_ORIGIN
+from constants import BASE_MODEL, PROMPT, NEGATIVE, IMAGE_ORIGIN
 
 
 def portrait_trans(
@@ -26,7 +25,7 @@ def portrait_trans(
         subfolder="models/image_encoder",
         torch_dtype=torch.float16,
     )
-    pipeline = StableDiffusionXLControlNetPipeline.from_pretrained(
+    pipeline = StableDiffusionXLPipeline.from_pretrained(
         BASE_MODEL,
         variant="fp16",
         use_safetensors=True,
