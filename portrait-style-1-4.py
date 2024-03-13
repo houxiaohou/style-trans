@@ -6,7 +6,7 @@
 import time
 
 import torch
-from diffusers import StableDiffusionXLControlNetPipeline, ControlNetModel
+from diffusers import StableDiffusionXLPipeline, ControlNetModel
 from diffusers.utils import load_image
 from transformers import CLIPVisionModelWithProjection
 
@@ -34,9 +34,9 @@ def portrait_trans(
         use_safetensors=True,
         torch_dtype=torch.float16,
     ).to('cuda')
-    pipeline = StableDiffusionXLControlNetPipeline.from_pretrained(
+    pipeline = StableDiffusionXLPipeline.from_pretrained(
         BASE_MODEL,
-        controlnet=controlnet,
+        # controlnet=controlnet,
         variant="fp16",
         use_safetensors=True,
         torch_dtype=torch.float16,
