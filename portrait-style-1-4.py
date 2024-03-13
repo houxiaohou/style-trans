@@ -6,9 +6,8 @@
 import time
 
 import torch
-from diffusers import StableDiffusionXLPipeline, ControlNetModel
+from diffusers import StableDiffusionXLPipeline
 from diffusers.utils import load_image
-from transformers import CLIPVisionModelWithProjection
 
 from constants import BASE_MODEL, CONTROL_CANNY, CONTROL_DEPTH, IMAGE_CANNY, IMAGE_DEPTH, PROMPT, PROMPT_2, NEGATIVE, \
     IMAGE_ORIGIN
@@ -23,24 +22,11 @@ def portrait_trans(
         prompt_2: str = None,
         negative: str = None,
 ):
-    image_encoder = CLIPVisionModelWithProjection.from_pretrained(
-        "h94/IP-Adapter",
-        subfolder="models/image_encoder",
-        torch_dtype=torch.float16,
-    )
-    controlnet = ControlNetModel.from_pretrained(
-        CONTROL_CANNY if control_type == 'canny' else CONTROL_DEPTH,
-        variant="fp16",
-        use_safetensors=True,
-        torch_dtype=torch.float16,
-    ).to('cuda')
     pipeline = StableDiffusionXLPipeline.from_pretrained(
         BASE_MODEL,
-        # controlnet=controlnet,
         variant="fp16",
         use_safetensors=True,
         torch_dtype=torch.float16,
-        image_encoder=image_encoder,
     ).to('cuda')
     pipeline.enable_model_cpu_offload()
     pipeline.load_ip_adapter(
