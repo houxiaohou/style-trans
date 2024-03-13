@@ -76,6 +76,7 @@ def portrait_trans_lineart(
         adapter_conditioning_scale=control_scale,
         num_inference_steps=30,
         num_images_per_prompt=4,
+        guidance_scale=7.5,
     ).images
     for image in images:
         stamp = int(time.time() * 1000)
@@ -83,7 +84,7 @@ def portrait_trans_lineart(
 
 
 if __name__ == '__main__':
-    for i in [0.4, 0.5, 0.6, 0.7]:
+    for i in [0.6, 0.7, 0.8, 0.9]:
         # lineart
         portrait_trans_lineart(
             IMAGE_LINEART,
