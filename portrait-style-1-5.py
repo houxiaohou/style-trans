@@ -54,7 +54,7 @@ def portrait_trans(
         scale=ip_adapter_scale,
         num_samples=4,
         num_inference_steps=30,
-    ).images
+    )
     for image in images:
         stamp = int(time.time() * 1000)
         image.save(f'output/1_5/{ip_adapter_scale}-{stamp}.png')
