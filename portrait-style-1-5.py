@@ -12,7 +12,7 @@ import numpy as np
 import torch
 from diffusers import StableDiffusionXLPipeline
 from insightface.app import FaceAnalysis
-from ip_adapter.ip_adapter_faceid import IPAdapterFaceIDXL
+from ip_adapter.ip_adapter_faceid import IPAdapterFaceIDPlusXL
 from transformers import CLIPVisionModelWithProjection
 
 from constants import BASE_MODEL, PROMPT, NEGATIVE, IMAGE_ORIGIN
@@ -46,7 +46,7 @@ def portrait_trans(
         image_encoder=image_encoder,
     )
 
-    ip_model = IPAdapterFaceIDXL(pipeline, 'ip-adapter-faceid-plusv2_sdxl.bin', 'cuda')
+    ip_model = IPAdapterFaceIDPlusXL(pipeline, 'ip-adapter-faceid-plusv2_sdxl.bin', 'cuda')
     images = ip_model.generate(
         faceid_embeds=faceid_embeds,
         prompt=prompt,
