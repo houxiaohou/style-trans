@@ -6,7 +6,7 @@
 import time
 
 import torch
-from diffusers import StableDiffusionXLControlNetPipeline, ControlNetModel, AutoPipelineForText2Image, T2IAdapter
+from diffusers import StableDiffusionXLControlNetPipeline, ControlNetModel, StableDiffusionXLAdapterPipeline, T2IAdapter
 from diffusers.utils import load_image
 
 from constants import BASE_MODEL, CONTROL_CANNY, CONTROL_DEPTH, IMAGE_LINEART, PROMPT, NEGATIVE
@@ -51,7 +51,7 @@ def portrait_trans(
 def portrait_trans_lineart(
         control_image: str,
         prompt: str,
-        negative: str,
+        negative: str = None,
         control_scale: float = 0.5
 ):
     """lineart"""
@@ -62,7 +62,7 @@ def portrait_trans_lineart(
         varient="fp16",
         use_safetensors=True,
     ).to("cuda")
-    pipeline = AutoPipelineForText2Image.from_pretrained(
+    pipeline = StableDiffusionXLAdapterPipeline.from_pretrained(
         BASE_MODEL,
         adapter=adapter,
         variant="fp16",
