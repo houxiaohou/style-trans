@@ -18,7 +18,7 @@ def trans(pipeline, index: int, image: str, style: dict, prompt: str):
     images = pipeline(
         prompt=style.get('prompt').replace('{prompt}', prompt),
         negative_prompt=style.get('negative'),
-        image=load_image(image),
+        image=load_image(f'{image}?imageView2/2/w/1024/h/1024'),
         num_inference_steps=30,
         num_images_per_prompt=4,
         strength=style.get('strength'),
@@ -74,7 +74,7 @@ if __name__ == '__main__':
         variant="fp16",
         use_safetensors=True,
         torch_dtype=torch.float16,
-    )
+    ).to('cuda')
     for _style in styles:
         for _index, _image in enumerate(origin_images):
             trans(pipeline, _index, _image, _style, 'cat')
