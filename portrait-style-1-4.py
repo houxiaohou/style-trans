@@ -6,8 +6,10 @@
 import time
 
 import torch
-from diffusers import StableDiffusionXLPipeline
+
+from diffusers import StableDiffusionXLPipeline, DDIMScheduler
 from diffusers.utils import load_image
+from transformers import CLIPVisionModelWithProjection
 
 from constants import BASE_MODEL, CONTROL_CANNY, CONTROL_DEPTH, IMAGE_CANNY, IMAGE_DEPTH, PROMPT, PROMPT_2, NEGATIVE, \
     IMAGE_ORIGIN
@@ -22,11 +24,17 @@ def portrait_trans(
         prompt_2: str = None,
         negative: str = None,
 ):
+    image_encoder = CLIPVisionModelWithProjection.from_pretrained(
+        "h94/IP-Adapter",
+        subfolder="models/image_encoder",
+        torch_dtype=torch.float16,
+    )
     pipeline = StableDiffusionXLPipeline.from_pretrained(
         BASE_MODEL,
         variant="fp16",
         use_safetensors=True,
         torch_dtype=torch.float16,
+        image_encoder=image_encoder,
     ).to('cuda')
     pipeline.enable_model_cpu_offload()
     pipeline.load_ip_adapter(
@@ -39,8 +47,8 @@ def portrait_trans(
         prompt=prompt,
         prompt_2=prompt_2,
         negative_prompt=negative,
-        ip_adapter_image=load_image(origin_image),
-        image=load_image(control_image),
+        ip_adapter_image_embeds=load_image(origin_image),
+        # image=load_image(control_image),
         num_inference_steps=30,
         num_images_per_prompt=4,
     ).images
