@@ -4,10 +4,15 @@
 实现方式 1.5（文生图，prompt + IP-Adapter-FaceID）：
 """
 import time
+from urllib.request import urlopen
+
+import cv2
+import numpy as np
 
 import torch
 from diffusers import StableDiffusionXLPipeline
-from diffusers.utils import load_image
+from insightface.app import FaceAnalysis
+from ip_adapter.ip_adapter_faceid import IPAdapterFaceIDXL
 from transformers import CLIPVisionModelWithProjection
 
 from constants import BASE_MODEL, PROMPT, NEGATIVE, IMAGE_ORIGIN
@@ -17,9 +22,17 @@ def portrait_trans(
         origin_image: str,
         prompt: str,
         ip_adapter_scale: float = 0.7,
-        prompt_2: str = None,
         negative: str = None,
 ):
+    # face
+    app = FaceAnalysis(name="buffalo_l", providers=['CUDAExecutionProvider', 'CPUExecutionProvider'])
+    app.prepare(ctx_id=0, det_size=(640, 640))
+    req = urlopen(origin_image)
+    arr = np.asarray(bytearray(req.read()), dtype=np.uint8)
+    image = cv2.imdecode(arr, -1)  # 'Load it as it is'
+    faces = app.get(image)
+    faceid_embeds = torch.from_numpy(faces[0].normed_embedding).unsqueeze(0)
+    # image encoder
     image_encoder = CLIPVisionModelWithProjection.from_pretrained(
         "h94/IP-Adapter",
         subfolder="models/image_encoder",
@@ -32,20 +45,15 @@ def portrait_trans(
         torch_dtype=torch.float16,
         image_encoder=image_encoder,
     ).to('cuda')
-    pipeline.enable_model_cpu_offload()
-    pipeline.load_ip_adapter(
-        "h94/IP-Adapter",
-        subfolder="sdxl_models",
-        weight_name="ip-adapter-plus-face_sdxl_vit-h.safetensors"
-    )
-    pipeline.set_ip_adapter_scale(ip_adapter_scale)
-    images = pipeline(
+
+    ip_model = IPAdapterFaceIDXL(pipeline, 'ip-adapter-faceid-plusv2_sdxl.bin', 'cuda')
+    images = ip_model.generate(
+        faceid_embeds=faceid_embeds,
         prompt=prompt,
-        prompt_2=prompt_2,
         negative_prompt=negative,
-        ip_adapter_image=load_image(origin_image),
+        scale=ip_adapter_scale,
+        num_samples=4,
         num_inference_steps=30,
-        num_images_per_prompt=4,
     ).images
     for image in images:
         stamp = int(time.time() * 1000)
@@ -53,7 +61,7 @@ def portrait_trans(
 
 
 if __name__ == '__main__':
-    for i in [0.3, 0.4, 0.5, 0.6, 0.7]:
+    for i in [0.5, 0.6, 0.7]:
         portrait_trans(
             IMAGE_ORIGIN,
             PROMPT,
