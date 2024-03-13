@@ -17,8 +17,7 @@ def trans(index: int, image: str, style: dict, prompt: str):
     folder = style.get('folder')
 
     pipeline: StableDiffusionXLImg2ImgPipeline = StableDiffusionXLImg2ImgPipeline.from_single_file(
-        'https://huggingface.co/bluepen5805/blue_pencil-XL/blob/main/blue_pencil-XL-v5.0.0.safetensors',
-        torch_dtype=torch.float16,
+        'https://huggingface.co/bluepen5805/blue_pencil-XL/blob/main/blue_pencil-XL-v5.0.0.safetensors'
     ).to('cuda')
     images = pipeline(
         prompt=style.get('prompt').replace('{prompt}', prompt),
