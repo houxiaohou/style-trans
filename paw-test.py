@@ -16,7 +16,7 @@ from constants import BASE_MODEL
 def trans(index: int, image: str, style: dict, prompt: str):
     folder = style.get('folder')
 
-    pipeline: StableDiffusionXLImg2ImgPipeline = StableDiffusionXLImg2ImgPipeline.from_pretrained(
+    pipeline: StableDiffusionXLImg2ImgPipeline = StableDiffusionXLImg2ImgPipeline.from_single_file(
         'bluepen5805/blue_pencil-XL',
         weight_name='blue_pencil-XL-v5.0.0.safetensors',
         variant="fp16",
