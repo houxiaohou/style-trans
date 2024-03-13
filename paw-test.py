@@ -30,28 +30,28 @@ def trans(pipeline, index: int, image: str, style: dict, prompt: str):
 
 if __name__ == '__main__':
     styles = [
-        {
-            'name': 'Basquiat',
-            'folder': 'basq',
-            'prompt': 'Artwork by Jean-Michel Basquiat {prompt}. Neo-expressionism, street art influence, graffiti-inspired, raw, energetic, bold colors, dynamic composition, chaotic, layered, textural, expressive, spontaneous, distinctive, symbolic,energetic brushstrokes.',
-            'negative': '(realistic:1.5), (photorealistic:1.5), calm, precise lines, conventional composition, subdued',
-            'strength': 0.75
-        },
+        # {
+        #     'name': 'Basquiat',
+        #     'folder': 'basq',
+        #     'prompt': 'Artwork by Jean-Michel Basquiat {prompt}. Neo-expressionism, street art influence, graffiti-inspired, raw, energetic, bold colors, dynamic composition, chaotic, layered, textural, expressive, spontaneous, distinctive, symbolic,energetic brushstrokes.',
+        #     'negative': '(realistic:1.5), (photorealistic:1.5), calm, precise lines, conventional composition, subdued',
+        #     'strength': 0.75
+        # },
         {
             'name': 'Simple Vector Art',
             'folder': 'vector',
             'prompt': 'Simple Vector Art, {prompt}, 2D flat, simple shapes, minimalistic, professional graphic, flat color, high contrast, Simple Vector Art',
             'negative': 'ugly, deformed, noisy, blurry, low contrast, 3D, photo, realistic',
             'strength': 0.75,
-        },
-        {
-            'name': 'popart',
-            'folder': 'pop',
-            'prompt': 'Simple Vector Art, {prompt}, 2D flat, simple shapes, minimalistic, professional graphic, flat color, high contrast, Simple Vector Art',
-            'negative': 'ugly, deformed, noisy, blurry, low contrast, 3D, photo, realistic',
-            'strength': 0.75,
-        },
-
+        }
+        # ,
+        # {
+        #     'name': 'popart',
+        #     'folder': 'pop',
+        #     'prompt': 'Simple Vector Art, {prompt}, 2D flat, simple shapes, minimalistic, professional graphic, flat color, high contrast, Simple Vector Art',
+        #     'negative': 'ugly, deformed, noisy, blurry, low contrast, 3D, photo, realistic',
+        #     'strength': 0.75,
+        # },
     ]
     origin_images = [
         'https://static.interval.im/interval/XYcyfMZBGeXRnAPm.jpeg',
@@ -77,4 +77,4 @@ if __name__ == '__main__':
     ).to('cuda')
     for _style in styles:
         for _index, _image in enumerate(origin_images):
-            trans(pipeline, _index, _image, _style, 'cat')
+            trans(pipeline, _index + 1, _image, _style, 'cat')
