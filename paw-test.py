@@ -63,7 +63,7 @@ if __name__ == '__main__':
     origin_images = [
         'https://static.interval.im/interval/XYcyfMZBGeXRnAPm.jpeg',
         'https://static.interval.im/interval/b2i4yZQmEzDtxSs8.jpeg',
-        # 'https://static.interval.im/interval/D73yjc72hcBXQRza.jpeg',
+        'https://static.interval.im/interval/D73yjc72hcBXQRza.jpeg',
         # 'https://static.interval.im/interval/p73SM4FTRKmh53cc.jpeg',
         # 'https://static.interval.im/interval/p73SM4FTRKmh53cc.jpeg',
         # 'https://static.interval.im/interval/esc2cberweJmkBzS.jpeg',
