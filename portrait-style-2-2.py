@@ -57,7 +57,7 @@ def portrait_trans(
 
 
 if __name__ == '__main__':
-    strength_numbers = [0.3, 0.35, 0.4, 0.5]
+    strength_numbers = [0.3, 0.4, 0.5, 0.6, 0.7]
     scale_numbers = [0.4, 0.5, 0.6]
     for _strength in strength_numbers:
         for _scale in scale_numbers:
