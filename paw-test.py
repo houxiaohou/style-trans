@@ -14,7 +14,7 @@ from constants import BASE_MODEL
 
 
 def trans(pipeline, index: int, image: str, style: dict, prompt: str):
-    name = style.get('name')
+    folder = style.get('folder')
     images = pipeline(
         prompt=style.get('prompt').replace('{prompt}', prompt),
         negative_prompt=style.get('negative'),
@@ -25,7 +25,7 @@ def trans(pipeline, index: int, image: str, style: dict, prompt: str):
     ).images
     for image in images:
         stamp = int(time.time() * 1000)
-        image.save(f'output/paw/{name}/{index}-{stamp}.png')
+        image.save(f'output/paw/{folder}/{index}-{stamp}.png')
 
 
 if __name__ == '__main__':
