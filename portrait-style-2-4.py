@@ -1,7 +1,7 @@
 """
 真人风格化
 
-实现方式 2.3（图生图，ControlNet + IP-Adapter风格图）：
+实现方式 2.4（图生图，ControlNet + IP-Adapter风格图 + IP-Adapter-FaceID）：
 """
 import time
 
@@ -47,10 +47,10 @@ def portrait_trans(
     pipeline.load_ip_adapter(
         "h94/IP-Adapter",
         subfolder="sdxl_models",
-        weight_name="ip-adapter-plus_sdxl_vit-h.safetensors"
+        weight_name=["ip-adapter-plus_sdxl_vit-h.safetensors", "ip-adapter-plus-face_sdxl_vit-h.safetensors"]
     )
     style_images = [load_image(f"style/{style}/1-{i}.jpg") for i in range(8)]
-    pipeline.set_ip_adapter_scale(ip_adapter_scale)
+    pipeline.set_ip_adapter_scale([ip_adapter_scale, 0.3])
     images = pipeline(
         prompt=prompt,
         negative_prompt=negative,
@@ -63,30 +63,23 @@ def portrait_trans(
     ).images
     for image in images:
         stamp = int(time.time() * 1000)
-        image.save(f'output/2_3/{control_type}/{strength}-{ip_adapter_scale}-{stamp}.png')
+        image.save(f'output/2_4/{control_type}/{strength}-{stamp}.png')
 
 
 if __name__ == '__main__':
-    numbers = [0.4, 0.5, 0.6, 0.7, 0.8]
-    for _strength in numbers:
-        for _scale in numbers:
-            # canny
-            portrait_trans(
-                IMAGE_ORIGIN,
-                IMAGE_CANNY,
-                PROMPT,
-                control_type='canny',
-                negative=NEGATIVE,
-                strength=_strength,
-                ip_adapter_scale=_scale,
-            )
-            # depth
-            portrait_trans(
-                IMAGE_ORIGIN,
-                IMAGE_DEPTH,
-                PROMPT,
-                control_type='depth',
-                negative=NEGATIVE,
-                strength=_strength,
-                ip_adapter_scale=_scale,
-            )
+    # canny
+    portrait_trans(
+        IMAGE_ORIGIN,
+        IMAGE_CANNY,
+        PROMPT,
+        control_type='canny',
+        negative=NEGATIVE
+    )
+    # depth
+    portrait_trans(
+        IMAGE_ORIGIN,
+        IMAGE_DEPTH,
+        PROMPT,
+        control_type='depth',
+        negative=NEGATIVE
+    )
