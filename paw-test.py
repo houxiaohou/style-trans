@@ -19,8 +19,6 @@ def trans(index: int, image: str, style: dict, prompt: str):
     pipeline: StableDiffusionXLImg2ImgPipeline = StableDiffusionXLImg2ImgPipeline.from_pretrained(
         './blue-pencil',
         local_files_only=True,
-        variant="fp16",
-        use_safetensors=True,
         torch_dtype=torch.float16,
     ).to('cuda')
     images = pipeline(
