@@ -62,7 +62,7 @@ def portrait_trans_lineart(
         varient="fp16",
         use_safetensors=True,
     ).to("cuda")
-    pipeline = AutoPipelineForText2Image(
+    pipeline = AutoPipelineForText2Image.from_pretrained(
         BASE_MODEL,
         adapter=adapter,
         variant="fp16",
