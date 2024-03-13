@@ -46,7 +46,7 @@ def portrait_trans(
         image_encoder=image_encoder,
     )
 
-    ip_model = IPAdapterFaceIDXL(pipeline, 'p-adapter-faceid_sdxl.bin', 'cuda')
+    ip_model = IPAdapterFaceIDXL(pipeline, 'ip-adapter-faceid_sdxl.bin', 'cuda')
     images = ip_model.generate(
         faceid_embeds=faceid_embeds,
         prompt=prompt,
