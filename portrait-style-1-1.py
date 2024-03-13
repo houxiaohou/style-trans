@@ -68,7 +68,7 @@ def portrait_trans_lineart(
         variant="fp16",
         use_safetensors=True,
         torch_dtype=torch.float16,
-    )
+    ).to('cuda')
     images = pipeline(
         prompt=prompt,
         negative_prompt=negative,
