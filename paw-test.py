@@ -17,7 +17,8 @@ def trans(index: int, image: str, style: dict, prompt: str):
     folder = style.get('folder')
 
     pipeline: StableDiffusionXLImg2ImgPipeline = StableDiffusionXLImg2ImgPipeline.from_pretrained(
-        BASE_MODEL,
+        'bluepen5805/blue_pencil-XL',
+        weight_name='blue_pencil-XL-v5.0.0.safetensors',
         variant="fp16",
         use_safetensors=True,
         torch_dtype=torch.float16,
