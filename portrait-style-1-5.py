@@ -61,7 +61,7 @@ def portrait_trans(
 
 
 if __name__ == '__main__':
-    for i in [0.5, 0.6, 0.7]:
+    for i in [0.5, 1.0, 2.0]:
         portrait_trans(
             IMAGE_ORIGIN,
             PROMPT,
