@@ -29,7 +29,6 @@ def trans(index: int, image: str, style: dict, prompt: str):
         num_inference_steps=30,
         num_images_per_prompt=4,
         guidance_scale=7.5,
-        denoising_start=0.35,
         strength=style.get('strength'),
     ).images
     for image in images:
