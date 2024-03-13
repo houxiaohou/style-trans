@@ -16,8 +16,9 @@ from constants import BASE_MODEL
 def trans(index: int, image: str, style: dict, prompt: str):
     folder = style.get('folder')
 
-    pipeline: StableDiffusionXLImg2ImgPipeline = StableDiffusionXLImg2ImgPipeline.from_single_file(
-        'https://huggingface.co/bluepen5805/blue_pencil-XL/blob/main/blue_pencil-XL-v5.0.0.safetensors'
+    pipeline: StableDiffusionXLImg2ImgPipeline = StableDiffusionXLImg2ImgPipeline.from_pretrained(
+        'playgroundai/playground-v2.5-1024px-aesthetic',
+        torch_dtype=torch.float16,
     ).to('cuda')
     images = pipeline(
         prompt=style.get('prompt').replace('{prompt}', prompt),
