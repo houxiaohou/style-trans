@@ -27,7 +27,7 @@ IMAGE_LINEART = 'https://static.interval.im/stable-ai/trans-1710298232061.png'
 
 # prompt
 
-PROMPT = '1man, Van Gogh painting style, 4k, masterpiece'
+PROMPT = 'Van Gogh painting style of a man, 4k, masterpiece'
 PROMPT_2 = 'Van Gogh painting style'
 NEGATIVE = 'lowres, bad anatomy, worst quality, low quality'
 
