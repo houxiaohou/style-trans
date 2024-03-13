@@ -13,14 +13,23 @@ from diffusers.utils import load_image
 from constants import BASE_MODEL
 
 
-def trans(pipeline, index: int, image: str, style: dict, prompt: str):
+def trans(index: int, image: str, style: dict, prompt: str):
     folder = style.get('folder')
+
+    pipeline: StableDiffusionXLImg2ImgPipeline = StableDiffusionXLImg2ImgPipeline.from_pretrained(
+        BASE_MODEL,
+        variant="fp16",
+        use_safetensors=True,
+        torch_dtype=torch.float16,
+    ).to('cuda')
     images = pipeline(
         prompt=style.get('prompt').replace('{prompt}', prompt),
         negative_prompt=style.get('negative'),
         image=load_image(f'{image}?imageView2/2/w/1024/h/1024'),
         num_inference_steps=30,
         num_images_per_prompt=4,
+        guidance_scale=7.5,
+        denoising_start=0.35,
         strength=style.get('strength'),
     ).images
     for image in images:
@@ -69,12 +78,6 @@ if __name__ == '__main__':
         'https://static.interval.im/interval/TjC4nRGJ7WtrEemp.jpeg',
         'https://static.interval.im/interval/QmGWeYiTr4xFFXzE.jpeg',
     ]
-    pipeline = StableDiffusionXLImg2ImgPipeline.from_pretrained(
-        BASE_MODEL,
-        variant="fp16",
-        use_safetensors=True,
-        torch_dtype=torch.float16,
-    ).to('cuda')
     for _style in styles:
         for _index, _image in enumerate(origin_images):
-            trans(pipeline, _index + 1, _image, _style, 'cat')
+            trans(_index + 1, _image, _style, 'cat')
