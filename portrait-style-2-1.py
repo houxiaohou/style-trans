@@ -1,7 +1,7 @@
 """
 真人风格化
 
-实现方式 2.1（图生图，prompt）：
+实现方式 2.1（原图 + prompt）：
 """
 import time
 
@@ -16,7 +16,6 @@ def portrait_trans(
         origin_image: str,
         prompt: str,
         strength: float = 0.7,
-        prompt_2: str = None,
         negative: str = None,
 ):
     pipeline = StableDiffusionXLImg2ImgPipeline.from_pretrained(
@@ -28,7 +27,6 @@ def portrait_trans(
     images = pipeline(
         prompt=prompt,
         negative_prompt=negative,
-        prompt_2=prompt_2,
         image=load_image(origin_image),
         strength=strength,
         num_inference_steps=50,
@@ -40,7 +38,7 @@ def portrait_trans(
 
 
 if __name__ == '__main__':
-    for i in [0.4, 0.5, 0.6, 0.7, 0.8]:
+    for i in [0.3, 0.35, 0.4, 0.5]:
         portrait_trans(
             IMAGE_ORIGIN,
             PROMPT,

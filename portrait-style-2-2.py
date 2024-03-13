@@ -1,7 +1,7 @@
 """
 真人风格化
 
-实现方式 2.2（图生图，ControlNet + 风格 Prompt）：
+实现方式 2.2（原图 + ControlNet + 风格 Prompt）：
 """
 import time
 
@@ -41,9 +41,13 @@ def portrait_trans(
         prompt=prompt,
         negative_prompt=negative,
         prompt_2=prompt_2,
+        # 原图
         image=load_image(origin_image),
+        # 控制图
         control_image=load_image(control_image),
         controlnet_conditioning_scale=control_scale,
+        # 原图强度
+        strength=strength,
         num_inference_steps=50,
         num_images_per_prompt=4,
     ).images
@@ -53,15 +57,15 @@ def portrait_trans(
 
 
 if __name__ == '__main__':
-    numbers = [0.4, 0.5, 0.6, 0.7, 0.8]
-    for _strength in numbers:
-        for _scale in numbers:
+    strength_numbers = [0.3, 0.35, 0.4, 0.5]
+    scale_numbers = [0.4, 0.5, 0.6]
+    for _strength in strength_numbers:
+        for _scale in scale_numbers:
             # canny
             portrait_trans(
                 IMAGE_ORIGIN,
                 IMAGE_CANNY,
                 PROMPT,
-                prompt_2=PROMPT_2,
                 control_type='canny',
                 negative=NEGATIVE,
                 strength=_strength,
@@ -72,7 +76,6 @@ if __name__ == '__main__':
                 IMAGE_ORIGIN,
                 IMAGE_DEPTH,
                 PROMPT,
-                prompt_2=PROMPT_2,
                 control_type='depth',
                 negative=NEGATIVE,
                 strength=_strength,
