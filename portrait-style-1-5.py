@@ -44,7 +44,7 @@ def portrait_trans(
         use_safetensors=True,
         torch_dtype=torch.float16,
         image_encoder=image_encoder,
-    ).to('cuda')
+    )
 
     ip_model = IPAdapterFaceIDXL(pipeline, 'ip-adapter-faceid-plusv2_sdxl.bin', 'cuda')
     images = ip_model.generate(
